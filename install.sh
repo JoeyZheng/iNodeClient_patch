@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 CURRENT=`pwd`
 
@@ -23,8 +23,6 @@ INODE_CFG="/etc/iNode/inodesys.conf"
 if [ -z "$INSTALL_DIR" ]; then
 	echo INSTALL_DIR=$CURRENT >> /etc/iNode/inodesys.conf
 fi
-
-if 
 
 if [ ! -r "/usr/lib/libstdc++.so.5" ]; then
 	cp -fr ./libs/std/libstdc++.so.5 /usr/lib/
@@ -54,6 +52,7 @@ OS_UBUNTU=`cat /etc/issue | grep 'Ubuntu'`
 
 if grep -i suse /etc/issue >/deve/null ; then
 	#zypper --non-interactive in libstdc++33 libstdc++47 libwx_baseu-2_8-0-wxcontainer libwx_gtk2u_core-2_8-0-wxcontainer
+	cat enablecards.ps | sed "s/network-scripts/network/g"	
 	mv -f ./iNodeAuthService /etc/init.d
 	chmod 755 /etc/init.d/iNodeAuthService
 	rm -f ./iNodeAuthService_ubuntu
