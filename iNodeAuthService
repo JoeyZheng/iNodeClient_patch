@@ -1,0 +1,55 @@
+#!/bin/sh
+#
+# Startup script for iNodeAuthService
+#
+# chkconfig: - 80 20
+# description: iNodeAuthService
+# processname: iNodeAuthService
+# pidfile: /var/run/AuthenMngService.pid
+# config: /etc/iNode/iNode.conf
+
+# Get fake config
+INODE_CFG="/etc/iNode/inodesys.conf"
+
+[ -r "$INODE_CFG" ] && . "${INODE_CFG}"
+
+# if INSTALL_DIR is not set, exit
+if [ -z "$INSTALL_DIR" ]; then
+    echo INSTALL_DIR not set yet
+    exit 1
+fi
+
+LD_LIBRARY_PATH="$LD_LIBRARY_PATH;$INSTALL_DIR/libs";export LD_LIBRARY_PATH
+
+RETVAL=0
+
+# See how we were called.
+start() {
+    echo -n "Starting AuthenMngService: "
+    $INSTALL_DIR/AuthenMngService
+}
+
+stop() {
+    echo -n "Stopping AuthenMngService: "
+    $INSTALL_DIR/AuthenMngService -k
+}
+
+# See how we were called.
+case "$1" in
+  start)
+        start
+        ;;
+  stop)
+        stop
+        ;;
+  restart)
+        stop
+        sleep 5
+        start
+        ;;
+  *)
+        echo "Usage: iNodeAuthService {start|stop|restart}"
+        exit 1
+esac
+
+exit $RETVAL
