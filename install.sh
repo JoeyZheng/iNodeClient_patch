@@ -52,6 +52,8 @@ OS_UBUNTU=`cat /etc/issue | grep 'Ubuntu'`
 
 if grep -i suse /etc/issue >/dev/null ; then
 	#zypper --non-interactive in libstdc++33 libstdc++47 libwx_baseu-2_8-0-wxcontainer libwx_gtk2u_core-2_8-0-wxcontainer
+	zypper -n in libpng12-0
+	ln -s /usr/lib/libtiff.so.5 /usr/lib/libtiff.so.3
 	sed -i "s/network-scripts/network/g" enablecards.ps
 	mv -f ./iNodeAuthService /etc/init.d
 	chmod 755 /etc/init.d/iNodeAuthService
